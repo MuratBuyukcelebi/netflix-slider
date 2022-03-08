@@ -1,0 +1,341 @@
+body {
+  background-color: #141414 !important;
+  padding-top: 128px;
+  padding-bottom: 128px;
+}
+
+.sequence {
+  overflow-x: clip;
+  padding-left: 60px;
+
+  &__top {
+    position: relative;
+    text-decoration: none;
+    display: table-cell;
+    vertical-align: middle;
+    padding-bottom: 20px;
+    padding-top: 20px;
+
+    &-title {
+      display: table-cell;
+      font-size: 24px;
+      line-height: 1.2;
+      transition: all .2s;
+      color: #fff;
+      opacity: .9;
+    }
+    &-look {
+      display: table-cell;
+      vertical-align: bottom;
+      transform: translateX(-20px);
+      transition: all .3s ease-in-out;
+
+      &__title {
+        opacity: 0;
+        font-size: 14px;
+        color: #fff;
+        transition: all .5s;
+        line-height: 1.5;
+        font-weight: bold;
+      }
+      &__icon {
+        position: absolute;
+        transition: all .5s;
+        right: 84px;
+        transform: translateX(20px);
+
+        svg {
+          height: 18px;
+          width: auto;
+
+          path {
+            fill: #fff;
+          }
+        }
+      }
+    }
+
+    &:hover & {
+      &-title {
+        opacity: 1;
+      }
+      &-look {
+        transform: translateX(10px);
+
+        &__title {
+          opacity: 1;
+        }
+        &__icon {
+          right: 0;
+        }
+      }
+    }
+  }
+
+  &:hover {
+    &__top {
+      &-icon {
+        display: block;
+      }
+    }
+  }
+}
+.sequence-item {
+  height: 100%;
+  position: relative;
+
+  &__image {
+    img {
+      border-radius: 8px;
+    }
+  }
+  &__subject {
+    pointer-events: none;
+    --zoom-ratio: 1.4;
+    border-radius: 8px;
+    justify-content: center;
+    flex-direction: column;
+    position: absolute;
+    left: 0;
+    top: 0;
+    transform-origin: center;
+    transition: all .3s, z-index .3s .3s;
+    background: #141414;
+    z-index: 0;
+
+    &-image {
+      position: relative;
+      z-index: 0;
+      height: 100%;
+
+      img {
+        height: 164px !important;
+        border-radius: 8px;
+      }
+    }
+    &-panel {
+      position: relative;
+      flex-direction: column;
+      padding: calc(16px / var(--zoom-ratio));
+      background: #141414;
+      border-radius: 0 0 8px 8px;
+      transition: all .3s;
+      animation-delay: .4s;
+      animation-name: panelOpacity;
+      z-index: 1;
+      opacity: 0;
+
+      &__actions {
+        display: flex;
+        margin-bottom: 10px;
+
+        &-item {
+          height: calc(42px / var(--zoom-ratio));
+          width: calc(42px / var(--zoom-ratio));
+          border-radius: 50%;
+          color: #fff;
+          outline: none;
+          background-color: rgba(42,42,42,.6);
+          border: 1px solid rgba(255, 255, 255, .5);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-right: 10px;
+          transition: all .2s ease-out;
+
+          &--start {
+            color: #141414;
+            background-color: #fff;
+
+            &:hover {
+              background-color: darken(#fff, 10%);
+            }
+          }
+
+          &:hover {
+            border: 1px solid rgba(255, 255, 255, 1);
+          }
+        }
+      }
+      &__detail {
+        display: flex;
+        align-items: center;
+        gap: calc(10px / var(--zoom-ratio));
+        color: #fff;
+        margin-bottom: calc(10px / var(--zoom-ratio));
+
+        span {
+          font-size: calc(18px / var(--zoom-ratio));
+          line-height: 1.2;
+        }
+        &-match {
+          color: #46d369;
+        }
+        &-age {
+          border: solid 1px rgba(255,255,255,.4);
+          font-size: calc(16px / var(--zoom-ratio));
+          padding: 0 8px;
+        }
+        &-quality {
+          border: 1px solid rgba(255,255,255,.4);
+          color: rgba(255,255,255,.9);
+          font-size: calc(16px / var(--zoom-ratio));
+          padding: 0 6px;
+        }
+      }
+      &__content {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        span {
+          font-size: calc(18px / var(--zoom-ratio));
+          font-weight: 400;
+          line-height: 1.2;
+          color: #fff;
+        }
+      }
+    }
+  }
+
+  &:hover & {
+    &__subject {
+      pointer-events: unset;
+      display: flex;
+      box-shadow: rgb(0 0 0 / 75%) 0 3px 10px;
+      top: -30px;
+      transform: scale(var(--zoom-ratio));
+      z-index: 99;
+
+      &-image {
+        img {
+          border-radius: 8px 8px 0 0;
+        }
+      }
+      &-panel {
+        display: flex;
+        opacity: 1;
+      }
+    }
+  }
+}
+
+.swiper {
+  width: 100%;
+  height: 164px;
+  overflow: unset !important;
+}
+.swiper-slide {
+  border-radius: 10px;
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &:hover {
+    z-index: 99;
+  }
+}
+.swiper-pagination {
+  width: unset !important;
+  right: 62px;
+  bottom: unset !important;
+  top: -24px;
+  left: unset !important;
+}
+.swiper-button-disabled {
+  display: none;
+}
+.swiper-pagination-bullet {
+  width: 12px;
+  height: 2px;
+  background-color: #4d4d4d;
+  margin-left: 1px;
+
+  &-active {
+    background-color: #aaa;
+  }
+}
+.swiper-button {
+  &-prev {
+    left: -60px;
+    background: rgba(20,20,20, .0);
+    height: 100%;
+    top: 0;
+    margin-top: 0;
+    width: 60px;
+
+    &:after {
+      content: '';
+      position: absolute;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 512' fill='%23fff'%3E%3C!--! Font Awesome Pro 6.0.0 by %40fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons  Inc. --%3E%3Cpath d='M96 480c-8.188 0-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L242.8 256L73.38 86.63c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l192 192c12.5 12.5 12.5 32.75 0 45.25l-192 192C112.4 476.9 104.2 480 96 480z'/%3E%3C/svg%3E");
+      height: 24px;
+      width: 24px;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+      transform: rotate(180deg);
+      transition: all .2s ease-in-out;
+    }
+
+    &:hover {
+      background: rgba(20,20,20,.7);
+
+      &:after {
+        transform: scale(1.5) rotate(180deg);
+      }
+    }
+  }
+  &-next {
+    height: 100%;
+    background: rgba(20,20,20, .0);
+    top: 0;
+    margin-top: 0;
+    width: 60px;
+    right: 0;
+
+    &:after {
+      content: '';
+      position: absolute;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 512' fill='%23fff'%3E%3C!--! Font Awesome Pro 6.0.0 by %40fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons  Inc. --%3E%3Cpath d='M96 480c-8.188 0-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L242.8 256L73.38 86.63c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l192 192c12.5 12.5 12.5 32.75 0 45.25l-192 192C112.4 476.9 104.2 480 96 480z'/%3E%3C/svg%3E");
+      height: 24px;
+      width: 24px;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+      transition: all .2s ease-in-out;
+    }
+
+    &:hover {
+      background: rgba(20,20,20,.7);
+
+      &:after {
+        transform: scale(1.5);
+      }
+    }
+  }
+}
+
+@keyframes panelOpacity {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
