@@ -143,9 +143,24 @@ body {
           margin-right: 10px;
           transition: all .2s ease-out;
 
+          svg {
+            height: 18px;
+            width: 18px;
+
+            path {
+              fill: #fff;
+            }
+          }
+
           &--start {
             color: #141414;
             background-color: #fff;
+
+            svg {
+              path {
+                fill: #141414;
+              }
+            }
 
             &:hover {
               background-color: darken(#fff, 10%);
