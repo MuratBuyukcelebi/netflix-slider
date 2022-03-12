@@ -54,7 +54,7 @@
           </div>
         </div>
       </div>
-      <div onclick="console.log($(this).offset());" class="swiper-slide">
+      <div class="swiper-slide">
         <div class="sequence-item">
           <a href="#" class="sequence-item__image"><img src="/image/1.png" alt="image"></a>
           <div class="sequence-item__subject">
@@ -323,7 +323,7 @@
     spaceBetween: 8,
     slidesPerGroup: 3,
     loop: false,
-    simulateTouch: false,
+    simulateTouch: true,
     pagination: {
       el: '.swiper-pagination',
       clickable: true,
@@ -341,13 +341,25 @@
       },
     },
   })
-  swiper.on('click', item => {
-    console.log(item)
-  });
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <script>
+  $(".sequence-item").on('mouseover', function () {
+    console.log($(this).offset())
+    $(this).children(".sequence-item__subject").css({
+      "left": $(this).offset().left + "px",
+      "top": $(this).offset().top + "px",
+      "display": "flex",
+      "opacity": "1",
+      "z-index": "99",
+      "box-shadow": "0px 0px 10px rgba(0,0,0,0.5)",
+      "transform": "scale(var(--zoom-ratio))",
+    });
+    $(this).children(".sequence-item__subject-panel").css({
+      "display": "flex",
+      "opacity": "1",
+    });
+  });
 </script>
-
 </body>
 </html>
