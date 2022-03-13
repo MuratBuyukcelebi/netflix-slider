@@ -107,15 +107,16 @@ body {
   z-index: 0;
   opacity: 0;
   transition: transform .5s, opacity .5s;
-  transform: scale(1) translateY(30px);
+  //transform: scale(1) translateY(30px);
 
-  &-image {
+  &__image {
     position: relative;
     z-index: 0;
-    height: 100%;
+    height: 0;
+    width: 0;
+    transition: height .5s, width .5s;
 
     img {
-      height: 164px !important;
       border-radius: 8px;
     }
   }
@@ -216,12 +217,13 @@ body {
     visibility: visible !important;
     opacity: 1 !important;
     z-index: 99 !important;
-    transform: scale(var(--zoom-ratio)) translateY(0) !important;
+    //transform: scale(var(--zoom-ratio)) /*translateY(0) !important*/;
   }
 
   &--active & {
     &-panel {
-      display: flex;
+      //display: flex;
+      display: none;
       opacity: 1;
     }
   }

@@ -90,7 +90,7 @@
   </div>
 </div>
 <div class="subject">
-  <a href="#" class="subject__image"><img src="/image/1.png" alt="image"></a>
+  <a href="#" class="subject__image"><img src="https://via.placeholder.com/340" alt="image"></a>
   <div class="subject-panel">
     <div class="subject-panel__actions">
       <button class="subject-panel__actions-item subject-panel__actions-item--start"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M361 215C375.3 223.8 384 239.3 384 256C384 272.7 375.3 288.2 361 296.1L73.03 472.1C58.21 482 39.66 482.4 24.52 473.9C9.377 465.4 0 449.4 0 432V80C0 62.64 9.377 46.63 24.52 38.13C39.66 29.64 58.21 29.99 73.03 39.04L361 215z"/></svg></button>
@@ -151,20 +151,35 @@
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <script>
-  $(".sequence-item")
-    .mouseenter(function () {
-      console.log($(this).offset())
-      $(".subject")
-        .addClass("subject--active")
-        .css({
-          "left": $(this).offset().left,
-          "top": $(this).offset().top,
-        })
-    })
+  function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+  $(".sequence-item").mouseenter(async function () {
+    await sleep(500)
+    console.log($(this).offset())
+    let height = $(this).height()
+    let width = $(this).width()
+
+    $(".subject__image").children("img").css({
+      "height": height,
+      "width": width,
+    });
+
+    $(".subject")
+      .addClass("subject--active")
+      .css({
+        "left": $(this).offset().left,
+        "top": $(this).offset().top,
+      })
+    });
 
   $(".sequence-item")
   $(".subject").mouseleave(function () {
       $(".subject").removeClass("subject--active")
+        .css({
+          "left": 0,
+          "top": 0,
+        });
   })
 </script>
 </body>
