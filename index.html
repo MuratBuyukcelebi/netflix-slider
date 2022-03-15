@@ -155,7 +155,7 @@
     return new Promise(resolve => setTimeout(resolve, ms));
   }
   $(".sequence-item").on("mouseenter", async function () {
-    await sleep(1000)
+    await sleep(500)
     console.log($(this).offset())
     let height = $(this).height()
     let width = $(this).width()
@@ -171,20 +171,33 @@
         "left": $(this).offset().left,
         "top": $(this).offset().top,
         "--zoom-ratio": "1.4",
+        "transform": "scale(1.4)",
+        "box-shadow": "0 3px 10px rgba(0,0,0, .75)",
       })
+
+    $(".subject-panel")
+      .css({
+        "opacity": "1",
+      });
     });
 
   $(".subject")
     .on("mouseleave", async function () {
-      await sleep(250)
       $(".subject")
         .css({
-          "--zoom-ratio": "1",
+          "transform": "scale(1)",
+          "box-shadow": "none",
         })
-      await sleep(350)
+      await sleep(180)
+      $(".subject-panel")
+        .css({
+          opacity: "0",
+        });
+      await sleep(200)
       $(".subject")
         .removeClass("subject--active")
         .css({
+          "--zoom-ratio": "1",
           "left": 0,
           "top": 0,
       });
