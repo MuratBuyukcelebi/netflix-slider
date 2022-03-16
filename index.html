@@ -151,55 +151,59 @@
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <script>
-  function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
-  $(".sequence-item").on("mouseenter", async function () {
-    await sleep(500)
+  let delay = setTimeout(() => {}, 100);
+  const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+
+  $(".sequence-item").on("mouseenter", function() {
     console.log($(this).offset())
     let height = $(this).height()
     let width = $(this).width()
-
-    $(".subject__image").children("img").css({
-      "height": height,
-      "width": width,
-    });
-
-    $(".subject")
-      .addClass("subject--active")
-      .css({
-        "left": $(this).offset().left,
-        "top": $(this).offset().top,
-        "--zoom-ratio": "1.4",
-        "transform": "scale(1.4)",
-        "box-shadow": "0 3px 10px rgba(0,0,0, .75)",
-      })
-
-    $(".subject-panel")
-      .css({
-        "opacity": "1",
+    let that = this
+    delay = setTimeout(async function() {
+      $(".subject__image").children("img").css({
+        "height": height,
+        "width": width,
       });
-    });
 
-  $(".subject")
-    .on("mouseleave", async function () {
       $(".subject")
+        .addClass("subject--active")
         .css({
-          "transform": "scale(1)",
-          "box-shadow": "none",
-        })
-      await sleep(180)
+          "left": $(that).offset().left,
+          "top": $(that).offset().top,
+          "--zoom-ratio": "1.4",
+          "transform": "scale(1.4)",
+          "box-shadow": "0 3px 10px rgba(0,0,0, .75)",
+        });
+
       $(".subject-panel")
         .css({
-          opacity: "0",
+          "opacity": "1",
         });
-      await sleep(200)
-      $(".subject")
-        .removeClass("subject--active")
-        .css({
-          "--zoom-ratio": "1",
-          "left": 0,
-          "top": 0,
+
+    }, 400);
+  }).on("mouseleave", async function() {
+    clearTimeout(delay)
+  })
+
+  $(".subject").on("mouseleave", async function() {
+    $(".subject")
+      .css({
+        "transform": "scale(1)",
+        "box-shadow": "none",
+      })
+    await sleep(180)
+    $(".subject-panel")
+      .css({
+        opacity: "0",
+      });
+    await sleep(200)
+    $(".subject")
+      .removeClass("subject--active")
+      .css({
+        "--zoom-ratio": "1",
+        "left": 0,
+        "top": 0,
       });
   })
 </script>
