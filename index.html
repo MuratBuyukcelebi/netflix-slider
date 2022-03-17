@@ -30,7 +30,22 @@
       </div>
       <div class="swiper-slide">
         <div class="sequence-item">
-          <a href="#" class="sequence-item__image"><img src="/image/1.png" alt="image"></a>
+          <a href="#" class="sequence-item__image"><img src="/image/2.jpg" alt="image"></a>
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <div class="sequence-item">
+          <a href="#" class="sequence-item__image"><img src="/image/3.jpg" alt="image"></a>
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <div class="sequence-item">
+          <a href="#" class="sequence-item__image"><img src="/image/4.jpg" alt="image"></a>
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <div class="sequence-item">
+          <a href="#" class="sequence-item__image"><img src="/image/5.jpg" alt="image"></a>
         </div>
       </div>
       <div class="swiper-slide">
@@ -40,47 +55,22 @@
       </div>
       <div class="swiper-slide">
         <div class="sequence-item">
-          <a href="#" class="sequence-item__image"><img src="/image/1.png" alt="image"></a>
+          <a href="#" class="sequence-item__image"><img src="/image/2.jpg" alt="image"></a>
         </div>
       </div>
       <div class="swiper-slide">
         <div class="sequence-item">
-          <a href="#" class="sequence-item__image"><img src="/image/1.png" alt="image"></a>
+          <a href="#" class="sequence-item__image"><img src="/image/3.jpg" alt="image"></a>
         </div>
       </div>
       <div class="swiper-slide">
         <div class="sequence-item">
-          <a href="#" class="sequence-item__image"><img src="/image/1.png" alt="image"></a>
+          <a href="#" class="sequence-item__image"><img src="/image/4.jpg" alt="image"></a>
         </div>
       </div>
       <div class="swiper-slide">
         <div class="sequence-item">
-          <a href="#" class="sequence-item__image"><img src="/image/1.png" alt="image"></a>
-        </div>
-      </div>
-      <div class="swiper-slide">
-        <div class="sequence-item">
-          <a href="#" class="sequence-item__image"><img src="/image/1.png" alt="image"></a>
-        </div>
-      </div>
-      <div class="swiper-slide">
-        <div class="sequence-item">
-          <a href="#" class="sequence-item__image"><img src="/image/1.png" alt="image"></a>
-        </div>
-      </div>
-      <div class="swiper-slide">
-        <div class="sequence-item">
-          <a href="#" class="sequence-item__image"><img src="/image/1.png" alt="image"></a>
-        </div>
-      </div>
-      <div class="swiper-slide">
-        <div class="sequence-item">
-          <a href="#" class="sequence-item__image"><img src="/image/1.png" alt="image"></a>
-        </div>
-      </div>
-      <div class="swiper-slide">
-        <div class="sequence-item">
-          <a href="#" class="sequence-item__image"><img src="/image/1.png" alt="image"></a>
+          <a href="#" class="sequence-item__image"><img src="/image/5.jpg" alt="image"></a>
         </div>
       </div>
     </div>
@@ -90,7 +80,7 @@
   </div>
 </div>
 <div class="subject">
-  <a href="#" class="subject__image"><img src="image/1.png" alt="image"></a>
+  <a href="#" class="subject__image"><img src="" alt="image"></a>
   <div class="subject-panel">
     <div class="subject-panel__actions">
       <button class="subject-panel__actions-item subject-panel__actions-item--start"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M361 215C375.3 223.8 384 239.3 384 256C384 272.7 375.3 288.2 361 296.1L73.03 472.1C58.21 482 39.66 482.4 24.52 473.9C9.377 465.4 0 449.4 0 432V80C0 62.64 9.377 46.63 24.52 38.13C39.66 29.64 58.21 29.99 73.03 39.04L361 215z"/></svg></button>
@@ -129,8 +119,8 @@
     slidesPerView: 7,
     spaceBetween: 8,
     slidesPerGroup: 3,
+    allowTouchMove: false,
     loop: false,
-    simulateTouch: true,
     pagination: {
       el: '.swiper-pagination',
       clickable: true,
@@ -156,23 +146,27 @@
 
 
   $(".sequence-item").on("mouseenter", function() {
-    console.log($(this).offset())
+    let that = $(this)
+    console.log($(that).offset())
     let height = $(this).height()
     let width = $(this).width()
-    let that = this
+
     delay = setTimeout(async function() {
+      $(".subject").find("img").attr("src", that.find("img").attr("src"))
       $(".subject__image").children("img").css({
-        "height": height,
-        "width": width,
+        "height": (height * 1.5),
+        "width": (width * 1.5),
       });
 
+      await sleep(600)
       $(".subject")
         .addClass("subject--active")
         .css({
-          "left": $(that).offset().left,
-          "top": $(that).offset().top,
-          "--zoom-ratio": "1.4",
-          "transform": "scale(1.4)",
+          "width": (width * 1.5),
+          "left": that.offset().left - (((width * 1.5) - width) / 2),
+          "top": that.offset().top - (((height * 1.79) - height) / 2),
+          "--scale": "1",
+          "--translateY": -`${height * 1.5}px`,
           "box-shadow": "0 3px 10px rgba(0,0,0, .75)",
         });
 
@@ -187,21 +181,22 @@
   })
 
   $(".subject").on("mouseleave", async function() {
+    await sleep(50)
     $(".subject")
       .css({
-        "transform": "scale(1)",
+        "--scale": ".667",
         "box-shadow": "none",
+        "--translateY": "0",
       })
-    await sleep(180)
+    await sleep(50)
     $(".subject-panel")
       .css({
         opacity: "0",
       });
-    await sleep(200)
+    await sleep(100)
     $(".subject")
       .removeClass("subject--active")
       .css({
-        "--zoom-ratio": "1",
         "left": 0,
         "top": 0,
       });

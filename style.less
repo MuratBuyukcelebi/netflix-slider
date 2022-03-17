@@ -90,10 +90,13 @@ body {
   &__image {
     img {
       border-radius: 8px;
+      object-fit: unset !important;
     }
   }
 }
 .subject {
+  --translateY: 0;
+  --scale: .667;
   visibility: hidden;
   border-radius: 8px;
   justify-content: center;
@@ -104,22 +107,22 @@ body {
   transform-origin: center center;
   background: #141414;
   z-index: 0;
-  transition: transform .3s, opacity .5s, box-shadow .5s;
-  transform: scale(1);
+  transition: transform .2s, opacity .5s, box-shadow .5s;
+  transform: scale(var(--scale)) translateY(var(--translateY)) !important;
 
   &__image {
     position: relative;
     z-index: 99;
 
     img {
-      border-radius: 8px;
-      object-fit: cover;
+      border-radius: 10px;
+      object-fit: unset;
     }
   }
   &-panel {
     transition: opacity .1s;
     flex-direction: column;
-    padding: calc(16px / var(--zoom-ratio));
+    padding: 16px;
     background: #141414;
     border-radius: 0 0 8px 8px;
 
@@ -128,8 +131,8 @@ body {
       margin-bottom: 10px;
 
       &-item {
-        height: calc(42px / var(--zoom-ratio));
-        width: calc(42px / var(--zoom-ratio));
+        height: 42px;
+        width: 42px;
         border-radius: 50%;
         color: #fff;
         outline: none;
@@ -172,12 +175,12 @@ body {
     &__detail {
       display: flex;
       align-items: center;
-      gap: calc(10px / var(--zoom-ratio));
+      gap: 10px;
       color: #fff;
-      margin-bottom: calc(10px / var(--zoom-ratio));
+      margin-bottom: 10px;
 
       span {
-        font-size: calc(18px / var(--zoom-ratio));
+        font-size: 18px;
         line-height: 1.2;
       }
       &-match {
@@ -185,13 +188,13 @@ body {
       }
       &-age {
         border: solid 1px rgba(255,255,255,.4);
-        font-size: calc(16px / var(--zoom-ratio));
+        font-size: 16px;
         padding: 0 8px;
       }
       &-quality {
         border: 1px solid rgba(255,255,255,.4);
         color: rgba(255,255,255,.9);
-        font-size: calc(16px / var(--zoom-ratio));
+        font-size: 16px;
         padding: 0 6px;
       }
     }
@@ -201,7 +204,7 @@ body {
       gap: 10px;
 
       span {
-        font-size: calc(18px / var(--zoom-ratio));
+        font-size: 18px;
         font-weight: 400;
         line-height: 1.2;
         color: #fff;
@@ -212,7 +215,6 @@ body {
   &--active {
     visibility: visible !important;
     z-index: 99 !important;
-    transform: scale(var(--zoom-ratio)) /*translateY(0) !important*/;
   }
   &--active & {
     &-panel {
