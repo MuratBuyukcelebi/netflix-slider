@@ -102,9 +102,11 @@
       <span class="subject-panel__detail-quality">HD</span>
     </div>
     <div class="subject-panel__content">
-      <span>korku</span>
-      <span>komedi</span>
-      <span>gerilim</span>
+      <span class="subject-panel__content-item">korku</span>
+      <span class="subject-panel__content-dot"></span>
+      <span class="subject-panel__content-item">komedi</span>
+      <span class="subject-panel__content-dot"></span>
+      <span class="subject-panel__content-item">gerilim</span>
     </div>
   </div>
 </div>
@@ -158,15 +160,15 @@
       $(".subject").find("img").attr("src", that.find("img").attr("src"))
       $(".subject__image").children("img").css({
         "height": (height * 1.5),
-        "width": (width * 1.5),
+        "width": "400px",
       });
 
       await sleep(600)
       $(".subject")
         .addClass("subject--active")
         .css({
-          "width": (width * 1.5),
-          "left": that.offset().left - (((width * 1.5) - width) / 2),
+          "width": "400px",
+          "left": that.offset().left - ((400 - width) / 2),
           "top": that.offset().top - (((height * 1.79) - height) / 2),
           "--scale": "1",
           "--translateY": -`${height * 1.5}px`,
